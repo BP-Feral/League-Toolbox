@@ -2,7 +2,7 @@
 ### About this project
 This project contains a collectin of tools for League of Legends.
 
-- Lobby Reveal - Built by [Inception](https://github.com/0xInception) Inception in console format, I adapt it to GUI and I plan to add more functionality to it including an embed browser or in app layout for summoners stats.
+- Lobby Reveal - Built by [Inception](https://github.com/0xInception) in console format, I adapt it to GUI and I plan to add more functionality to it including an embed browser or in app layout for summoners stats.
 - Custom Status - WIP
 - Custom Icon - WIP
 - Chat Rank - WIP
