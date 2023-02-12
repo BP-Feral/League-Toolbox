@@ -2,6 +2,9 @@
 ### About this project
 This project contains a collectin of tools for League of Legends.
 
+To get it go to [releases](https://github.com/pricob/League-Toolbox/releases/tag/pre-release) and downlaod LeagueTool.rar
+Extract it and run LobbyRV.exe
+
 - Lobby Reveal - Built by [Inception](https://github.com/0xInception) in console format, I adapt it to GUI and I plan to add more functionality to it including an embed browser or in app layout for summoners stats.
 - Custom Status - WIP
 - Custom Icon - WIP
