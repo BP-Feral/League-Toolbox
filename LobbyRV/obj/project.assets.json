@@ -150,11 +150,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\source\\repos\\LobbyRV\\LobbyRV\\LobbyRV.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\League-Toolbox\\LobbyRV\\LobbyRV.csproj",
       "projectName": "LobbyRV",
-      "projectPath": "C:\\Users\\User\\source\\repos\\LobbyRV\\LobbyRV\\LobbyRV.csproj",
+      "projectPath": "C:\\Users\\User\\Documents\\GitHub\\League-Toolbox\\LobbyRV\\LobbyRV.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\source\\repos\\LobbyRV\\LobbyRV\\obj\\",
+      "outputPath": "C:\\Users\\User\\Documents\\GitHub\\League-Toolbox\\LobbyRV\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

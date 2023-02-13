@@ -12,7 +12,8 @@ namespace LobbyRV
 {
     internal class Program
     {
-        public async static Task Main(string[] args)
+        [STAThread]
+        static void Main(string[] args)
         {
             ApplicationConfiguration.Initialize();
             Application.Run(new FormMainMenu());

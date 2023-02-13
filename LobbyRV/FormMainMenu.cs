@@ -24,7 +24,6 @@ namespace LobbyRV
             
             InitializeComponent();
             random = new Random();
-            btnCloseChildForm.Visible = false;
             this.Text = string.Empty;
             this.ControlBox = false;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
@@ -65,7 +64,6 @@ namespace LobbyRV
                     panelLogo.BackColor = ThemeColor.ChangeColorBrightness(color, -0.3);
                     ThemeColor.PrimaryColor = color;
                     ThemeColor.SecondaryColor = ThemeColor.ChangeColorBrightness(color, -0.3);
-                    btnCloseChildForm.Visible = true;
                 }
             }
         }
@@ -139,32 +137,10 @@ namespace LobbyRV
             OpenChildForm(new Forms.CustomIcon(), sender);
         }
 
-        private void btnCloseChildForm_Click(object sender, EventArgs e)
-        {
-            if (activeForm != null)
-                activeForm.Close();
-            Reset();
-        }
-
-        private void Reset()
-        {
-            DisableButton();
-            lblTitle.Text = "HOME";
-            panelTitleBar.BackColor = System.Drawing.Color.FromArgb(0, 150, 146);
-            panelLogo.BackColor = System.Drawing.Color.FromArgb(39, 39, 58);
-            currentButton = null;
-            btnCloseChildForm.Visible = false;
-        }
-
         private void panelTitleBar_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
 
         private void btnMaximize_Click(object sender, EventArgs e)
@@ -178,6 +154,11 @@ namespace LobbyRV
         private void btnMinimize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 

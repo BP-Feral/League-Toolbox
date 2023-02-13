@@ -20,14 +20,17 @@ namespace LobbyRV.Forms
 {
     public partial class LobbyReveal : Form
     {
-        private static List<LobbyHandler> _handlers = new List<LobbyHandler>();
-        private static bool _update = true;
+        private List<LobbyHandler> _handlers = new List<LobbyHandler>();
+        private bool _update = true;
+        private bool show_link = false;
+
         public LobbyReveal()
         {
             InitializeComponent();
-            lblMessage.Text = "No Data";
+            lblMessage.Text = "Looking for data";
             lblLink.Visible = false;
-            lblMessage.Visible = false;
+            btnCopy.Enabled = false;
+            
             var watcher = new LeagueClientWatcher();
             watcher.OnLeagueClient += (clientWatcher, client) =>
             {
@@ -51,9 +54,57 @@ namespace LobbyRV.Forms
                     IsBackground = true
                 }.Start();
 
-                Variables.LobbyHandlerVisited = true;
+                new Thread(() => { AutoRefresh(); })
+                {
+                    IsBackground = true
+                }.Start();
+
             }
 
+        }
+
+        private void AutoRefresh()
+        {
+            while (true)
+            {
+                if (_handlers.Count < 1)
+                {
+                    lblMessage.Text = "No connections detected. Make sure you have at least one client open. \n (Link and summoners will load after you connect to lobby ('Connecting...'))";
+                    if (lblMessage.InvokeRequired)
+                        try
+                        {
+                            lblMessage.Invoke(new MethodInvoker(delegate
+                            {
+                                lblMessage.Visible = true;
+                            }));
+                        }
+                        catch (System.ObjectDisposedException ex) { Console.WriteLine(ex.ToString()); /* continue */}
+                    _update = true;
+                }
+                else
+                {
+                    var region = _handlers[0].GetRegion();
+                    var link = $"https://www.op.gg/multisearch/{region ?? LobbyRV.Region.EUW}?summoners=" + HttpUtility.UrlEncode($"{string.Join(",", _handlers[0].GetSummoners())}");
+
+                    if (string.Equals(link.ToString(), "https://www.op.gg/multisearch/EUNE?summoners=") || string.Equals(link.ToString(), "https://www.op.gg/multisearch/EUW?summoners="))
+                        show_link = false; else show_link = true;
+
+                    if (lblLink.InvokeRequired)
+                        try
+                        {
+                            lblLink.Invoke(new MethodInvoker(delegate
+                            {
+                                lblLink.Text = link.ToString();
+                                lblLink.Visible = show_link;
+                                if(show_link)
+                                    btnCopy.Enabled = true;
+                            }));
+                        }
+                        catch (System.ObjectDisposedException ex) { Console.WriteLine(ex.ToString()); /* continue */}
+                    _update = true;
+                }
+                Thread.Sleep(200);
+            }
         }
 
         private void Refresher()
@@ -70,14 +121,11 @@ namespace LobbyRV.Forms
                                 listBox.Items.Clear();
                             }));
                         }
-                        catch (System.ObjectDisposedException ex)
-                        { /* do nothing*/ }
+                        catch (System.ObjectDisposedException ex) { Console.WriteLine(ex.ToString()); /* continue */}
 
                     for (int i = 0; i < _handlers.Count; i++)
                     {
-                        var link =
-                            $"https://www.op.gg/multisearch/{_handlers[i].GetRegion() ?? LobbyRV.Region.EUW}?summoners=" +
-                            HttpUtility.UrlEncode($"{string.Join(",", _handlers[i].GetSummoners())}");
+                        var link = $"https://www.op.gg/multisearch/{_handlers[i].GetRegion() ?? LobbyRV.Region.EUW}?summoners=" + HttpUtility.UrlEncode($"{string.Join(",", _handlers[i].GetSummoners())}");
 
                         if (listBox.InvokeRequired)
                             listBox.Invoke(new MethodInvoker(delegate
@@ -98,43 +146,18 @@ namespace LobbyRV.Forms
                             {
                                 lblLink.Text = link.ToString();
                             }));
-                        
                     }
                     _update = false;
                 }
 
-                Thread.Sleep(2000);
+                Thread.Sleep(200);
             }
         }
-
-        private void btnGetData_Click(object sender, EventArgs e)
+        private void btnCopy_Click(object sender, EventArgs e)
         {
-            if (_handlers.Count < 1)
-            {
-                lblMessage.Text = "No connections detected. Make sure you have at least one client open.";
-                lblMessage.Visible = true;
-                _update = true;
-            }
-            else
-            {
-                var region = _handlers[0].GetRegion();
-
-                var link =
-                    $"https://www.op.gg/multisearch/{region ?? LobbyRV.Region.EUW}?summoners=" +
-                    HttpUtility.UrlEncode($"{string.Join(",", _handlers[0].GetSummoners())}");
-
-                if (string.Equals(link.ToString(), "https://www.op.gg/multisearch/EUNE?summoners="))
-                    lblLink.Visible = false;
-                else if (string.Equals(link.ToString(), "https://www.op.gg/multisearch/EUW?summoners="))
-                    lblLink.Visible = false;
-                else
-                {
-                    lblLink.Text = link.ToString();
-                    lblLink.Visible = true;
-                }
-
-                _update = true;
-            }
+            Console.WriteLine(lblLink.Text);
+            Clipboard.SetText(lblLink.Text.ToString());
+            btnCopy.Text = ("Copied!");
         }
     }
 }
