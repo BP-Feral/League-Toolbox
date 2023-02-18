@@ -69,12 +69,12 @@ namespace LobbyRV.Forms
             {
                 if (_handlers.Count < 1)
                 {
-                    lblMessage.Text = "No connections detected. Make sure you have at least one client open. \n (Link and summoners will load after you connect to lobby ('Connecting...'))";
                     if (lblMessage.InvokeRequired)
                         try
                         {
                             lblMessage.Invoke(new MethodInvoker(delegate
                             {
+                                lblMessage.Text = "No connections detected. Make sure you have at least one client open. \n (Link and summoners will load after you connect to lobby ('Connecting...'))";
                                 lblMessage.Visible = true;
                             }));
                         }

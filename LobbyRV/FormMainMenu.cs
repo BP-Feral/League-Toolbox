@@ -27,6 +27,12 @@ namespace LobbyRV
             this.Text = string.Empty;
             this.ControlBox = false;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            // temporary disable
+            btnGhost.Enabled = false;
+            btnSkin.Enabled = false;
+            btnRank.Enabled = false;
+            btnStatus.Enabled = false;
+            btnIcon.Enabled = false;
         }
 
         //Move Window from menu panel
@@ -98,6 +104,11 @@ namespace LobbyRV
             this.panelDesktopPane.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+            if (activeForm.Text.ToString() == "LobbyReveal")
+            {
+                panel_info.Visible = false;
+                panel_info2.Visible = false;
+            }
         }
 
         // Methods
