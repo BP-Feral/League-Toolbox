@@ -86,7 +86,7 @@ namespace LobbyRV.Forms
                     var region = _handlers[0].GetRegion();
                     var link = $"https://www.op.gg/multisearch/{region ?? LobbyRV.Region.EUW}?summoners=" + HttpUtility.UrlEncode($"{string.Join(",", _handlers[0].GetSummoners())}");
 
-                    if (string.Equals(link.ToString(), "https://www.op.gg/multisearch/EUNE?summoners=") || string.Equals(link.ToString(), "https://www.op.gg/multisearch/EUW?summoners="))
+                    if (string.Equals(link.ToString(), "https://www.op.gg/multisearch/EUNE?summoners=") || string.Equals(link.ToString(), "https://www.op.gg/multisearch/EUW?summoners=") || string.Equals(link.ToString(), "https://www.op.gg/multisearch/PH?summoners="))
                         show_link = false; else show_link = true;
 
                     if (lblLink.InvokeRequired)
