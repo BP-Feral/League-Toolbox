@@ -23,7 +23,26 @@ namespace LobbyRV.Forms
         private List<LobbyHandler> _handlers = new List<LobbyHandler>();
         private bool _update = true;
         private bool show_link = false;
-
+        string[] validLinks = new string[]
+        {
+            "https://www.op.gg/multisearch/BR?summoners=",
+            "https://www.op.gg/multisearch/EUNE?summoners=",
+            "https://www.op.gg/multisearch/EUW?summoners=",
+            "https://www.op.gg/multisearch/LAN?summoners=",
+            "https://www.op.gg/multisearch/LAS?summoners=",
+            "https://www.op.gg/multisearch/NA?summoners=",
+            "https://www.op.gg/multisearch/OCE?summoners=",
+            "https://www.op.gg/multisearch/RU?summoners=",
+            "https://www.op.gg/multisearch/TR?summoners=",
+            "https://www.op.gg/multisearch/JP?summoners=",
+            "https://www.op.gg/multisearch/KR?summoners=",
+            "https://www.op.gg/multisearch/PH?summoners=",
+            "https://www.op.gg/multisearch/SG?summoners=",
+            "https://www.op.gg/multisearch/TW?summoners=",
+            "https://www.op.gg/multisearch/TH?summoners=",
+            "https://www.op.gg/multisearch/VVN?summoners=",
+            "https://www.op.gg/multisearch/PBE?summoners="
+        };
         public LobbyReveal()
         {
             InitializeComponent();
@@ -65,6 +84,7 @@ namespace LobbyRV.Forms
 
         private void AutoRefresh()
         {
+
             while (true)
             {
                 if (_handlers.Count < 1)
@@ -86,7 +106,7 @@ namespace LobbyRV.Forms
                     var region = _handlers[0].GetRegion();
                     var link = $"https://www.op.gg/multisearch/{region ?? LobbyRV.Region.EUW}?summoners=" + HttpUtility.UrlEncode($"{string.Join(",", _handlers[0].GetSummoners())}");
 
-                    if (string.Equals(link.ToString(), "https://www.op.gg/multisearch/EUNE?summoners=") || string.Equals(link.ToString(), "https://www.op.gg/multisearch/EUW?summoners=") || string.Equals(link.ToString(), "https://www.op.gg/multisearch/PH?summoners="))
+                    if (validLinks.Contains(link.ToString()))
                         show_link = false; else show_link = true;
 
                     if (lblLink.InvokeRequired)

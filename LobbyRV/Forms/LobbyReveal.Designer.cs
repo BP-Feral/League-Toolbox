@@ -142,7 +142,6 @@
 
         #endregion
 
-        private RichTextBox richTextBox1;
         private Label lblMessage;
         private Button btnCopy;
         private Label lblTitle;
