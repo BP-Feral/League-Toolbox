@@ -19,8 +19,6 @@ If you have any suggestions contact us on discord or email.
 ### Discord or email
 Send me a direct message at `Rioter Neeko#0646` / `rioterneeko` or join my server using [this server invite](https://discord.gg/xcEYBpn2k2).
 
-You can also send me an email at mihai.pricbo@yahoo.com if DIscord is not an option.
-
 ## FaQ
 When will it be released?
 > It's already released, but we still need to test it. Feel free to report any issue.
